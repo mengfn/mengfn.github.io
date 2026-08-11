@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meng Fang - University of Liverpool</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- 区块一：首屏名片与简介 -->
+    <header class="header">
+        <div class="header-content">
+            <div class="profile-img-container">
+                <img src="moe.jpg" alt="Dr. Meng Fang" class="profile-pic">
+            </div>
+            
+            <div class="header-text">
+                <h1>Meng Fang</h1>
+                <div class="title">
+                    Assistant Professor in AI @ University of Liverpool | Visiting Prof @ TU/e
+                </div>
+                
+                <div class="links">
+                    <a href="teaching.html">Teaching</a>
+                    <a href="people.html">People</a>
+                    <a href="agentlab.html">AgentLab</a>
+                    <a href="https://scholar.google.com/citations?user=IcNYP1oAAAAJ&hl=en">Google Scholar</a>
+                    <a href="https://github.com/mengfn">GitHub</a>
+                    <a href="mailto:Meng.Fang@liverpool.ac.uk">Email</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bio 移到了下方，使用正常格式，没有 hiring 背景框 -->
+        <div style="margin-bottom: 20px;">
+            <p class="bio">
+                I build <strong>human-like AI agents</strong>. My primary research focuses on AI Agents, Foundation Models, Reinforcement Learning (RL), and Social and Responsible AI.
+                <br><br>
+                I received my Ph.D. from UTS, advised by Prof. Dacheng Tao, and then worked as a postdoc with Prof. Trevor Cohn at the University of Melbourne. I held research and internship positions at Tencent (Robotics X and AI Lab), CSIRO, and Microsoft Research Asia before. 
+            </p>
+        </div>
+
+        <!-- 招生信息保留高亮提示框 -->
+        <div class="hiring">
+            🚨 <strong>Openings:</strong> Open to self-motivated PhDs and Interns. <a href="join.html">Apply here ↗</a>
+        </div>
+    </header>
+
+    <!-- 区块二：研究方向 (经典四大领域) -->
+    <section id="research">
+        <h2>Research</h2>
+        <div class="research-grid">
+            
+            <!-- 1. 智能体 -->
+            <div class="research-card">
+                <h3>🤖 1. AI Agents</h3>
+                <p>Building intelligent systems capable of human-like learning, reasoning, and planning in complex environments.</p>
+                <div style="margin-top: 8px;">
+                    <span class="badge badge-domain">🎮 Games</span>
+                    <span class="badge badge-domain">🤖 Embodied Robotics</span>
+                </div>
+            </div>
+            
+            <!-- 2. 自然语言处理 (把数据和推理放进来) -->
+            <div class="research-card">
+                <h3>🗣️ 2. Foundation Models</h3>
+                <p>Advancing Large Language Models (LLMs) through data-centric training, robust data selection, and enhancing mathematical and scientific reasoning.</p>
+            </div>
+
+            <!-- 3. 强化学习 -->
+            <div class="research-card">
+                <h3>🎯 3. Reinforcement Learning</h3>
+                <p>Advancing foundational algorithms for decision-making, tackling core challenges in offline RL, multi-goal learning, and sparse rewards.</p>
+            </div>
+            
+            <!-- 4. 可信 AI -->
+            <div class="research-card">
+                <h3>🛡️ 4. Social and Responsible AI</h3>
+                <p>Investigating multilateral fairness and social bias in LLMs, alongside developing Safe RL algorithms to guarantee safety constraints in deployment.</p>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- 区块三：最新消息 (移到研究下方，保持滚动) -->
+    <section id="news">
+        <h2>Latest News</h2>
+        <ul class="news-list">
+            <li><strong>[Jul 2026]</strong> <em>Q-Evolve</em> accepted to ICML, presenting a novel self-evolving framework for LLM agents grounded within a shared in-distribution learning loop. <a href="https://qevolve.github.io/" class="badge" target="_blank">Project</a></li>
+            <li><strong>[Dec 2025]</strong> Paper accepted to NeurIPS 2025: <em>MuRating</em> introduces a scalable high-quality data selection framework that transfers English quality signals to boost multilingual LLM pretraining across 17 languages.</li>
+        </ul>
+    </section>
+
+    <!-- 区块四：精选论文 -->
+    <section id="publications">
+        <h2>Selected Publications <span style="font-size: 0.9rem; font-weight: normal;">(<a href="#">Full List</a>)</span></h2>
+        <ul class="pub-list">
+            
+            <!-- ICML 2026 -->
+            <li>
+                <div class="pub-title">Self-evolving LLM agents with in-distribution Optimization</div>
+                <div class="pub-meta">Yudi Zhang, <strong>Meng Fang</strong>, Zhenfang Chen, Mykola Pechenizkiy | <em>ICML 2026</em></div>
+                <div>
+                    <a href="https://qevolve.github.io/" class="badge" target="_blank">Project</a>
+                    <a href="#" class="badge">PDF</a>
+                    <a href="#" class="badge">Code</a>
+                </div>
+            </li>
+
+            <!-- ACL 2026 -->
+            <li>
+                <div class="pub-title">mPresenter: An Agentic Framework for Generating Multilingual Presentation Videos from Scientific Papers</div>
+                <div class="pub-meta">Wenhan Han, Xiao Xiao, Mykola Pechenizkiy, <strong>Meng Fang</strong> | <em>ACL Findings 2026</em></div>
+                <div>
+                    <a href="#" class="badge">PDF</a>
+                    <a href="#" class="badge">Code</a>
+                </div>
+            </li>
+
+            <!-- NeurIPS 2025 -->
+            <li>
+                <div class="pub-title">MuRating: A High Quality Data Selecting Approach to Multilingual Large Language Model Pretraining</div>
+                <div class="pub-meta">Zhixun Chen, Ping Guo, Wenhan Han, Yifan Zhang, Haobin Lin, Fengze Liu, Yan Zhao, Bingni Zhang, Taifeng Wang, Yin Zheng, Trevor Cohn, <strong>Meng Fang</strong> | <em>NeurIPS 2025</em></div>
+                <div>
+                    <a href="#" class="badge">PDF</a>
+                    <a href="#" class="badge">Code</a>
+                </div>
+            </li>
+            
+            <!-- Scientific Data 2025 (MathOdyssey) -->
+            <li>
+                <div class="pub-title">MathOdyssey: Benchmarking Mathematical Problem-Solving Skills in Large Language Models Using Odyssey Math Data</div>
+                <div class="pub-meta"><strong>Meng Fang</strong>, Xiangpeng Wan, Fei Lu, Fei Xing, Kai Zou | <em>Scientific Data 2025</em></div>
+                <div>
+                    <a href="#" class="badge">PDF</a>
+                    <a href="#" class="badge">Dataset</a>
+                    <a href="#" class="badge">Project</a>
+                </div>
+            </li>
+
+            <!-- ICLR 2025 -->
+            <li>
+                <div class="pub-title">Monte Carlo Planning with Large Language Model for Text-Based Game Agents</div>
+                <div class="pub-meta">Zijing Shi, <strong>Meng Fang</strong>, Ling Chen | <em>ICLR 2025</em></div>
+                <div>
+                    <a href="#" class="badge">PDF</a>
+                    <a href="#" class="badge">Project</a>
+                </div>
+            </li>
+
+        </ul>
+    </section>
+<footer style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #e9ecef; text-align: center; color: #888; font-size: 0.85rem;">
+        &copy; 2026 Meng Fang. Last updated: August 2026.
+    </footer>
+</body>
+</html>

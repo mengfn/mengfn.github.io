@@ -1,0 +1,227 @@
+/* ==========================================================================
+   全局变量与基础设置 (Global Variables & Basics)
+   ========================================================================== */
+:root {
+    --text-color: #333333;
+    --link-color: #0056b3; 
+    --bg-color: #ffffff;
+    --card-bg: #f8f9fa;
+    --border-color: #e9ecef;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.5; /* 稍微缩紧行高 */
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1, h2, h3 {
+    font-weight: 600;
+    color: #111;
+    margin-top: 1.2em;
+    margin-bottom: 0.4em;
+}
+
+h1 { font-size: 1.5rem; margin-top: 0; margin-bottom: 0.1em; }
+h2 { font-size: 1.4rem; border-bottom: 1px solid var(--border-color); padding-bottom: 5px; margin-top: 20px;}
+h3 { font-size: 1.05rem; margin-top: 0; }
+
+a { color: var(--link-color); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* 子页面公共组件：返回按钮与页脚 */
+.back-link {
+    font-size: 0.95rem;
+    color: #666;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+.back-link:hover { color: var(--link-color); text-decoration: none; }
+
+footer {
+    margin-top: 50px; 
+    padding-top: 20px; 
+    border-top: 1px solid var(--border-color); 
+    text-align: center; 
+    color: #888; 
+    font-size: 0.85rem;
+}
+
+/* ==========================================================================
+   主页：首屏与简介 (Index - Header)
+   ========================================================================== */
+.header { margin-bottom: 25px; }
+.header-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 15px;
+}
+.profile-pic {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.header-text { flex-grow: 1; }
+.title { color: #555; font-size: 1rem; margin-bottom: 10px; line-height: 1.4; }
+.links { font-size: 0.9rem; margin-bottom: 15px; }
+.links a { margin-right: 12px; font-weight: 500;}
+.bio { font-size: 1rem; margin-bottom: 0; }
+.hiring {
+    background-color: #f0f7ff;
+    border-left: 3px solid var(--link-color);
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    border-radius: 0 4px 4px 0;
+    margin-top: 15px;
+}
+
+/* ==========================================================================
+   主页：研究方向网格 (Index - Research)
+   ========================================================================== */
+.research-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 15px;
+}
+.research-card {
+    background-color: var(--card-bg);
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+}
+.research-card p { font-size: 0.9rem; margin: 0; color: #555; }
+
+/* ==========================================================================
+   列表样式：新闻、论文、教学、团队 (Lists)
+   ========================================================================== */
+/* 1. 新闻列表 */
+.news-list {
+    max-height: 120px;
+    overflow-y: auto; 
+    padding-right: 10px; 
+    padding-left: 18px;
+    margin-top: 10px;
+    margin-bottom: 0;
+    font-size: 0.95rem;
+}
+.news-list li { margin-bottom: 6px; }
+.news-list::-webkit-scrollbar { width: 4px; }
+.news-list::-webkit-scrollbar-track { background: #f8f9fa; border-radius: 4px; }
+.news-list::-webkit-scrollbar-thumb { background: #d1d1d1; border-radius: 4px; }
+
+/* 2. 论文列表 (Index) & 教学列表 (Teaching) 共用样式 */
+.pub-list, .list-container { 
+    list-style-type: none; 
+    padding: 0; 
+    margin: 0;
+    margin-top: 15px; 
+}
+.pub-list li, .list-container li {
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px dashed var(--border-color);
+}
+.pub-list li:last-child, .list-container li:last-child { border-bottom: none; padding-bottom: 0;}
+.pub-title { font-weight: 600; font-size: 0.95rem;}
+.pub-meta { font-size: 0.85rem; color: #666; margin-top: 2px; }
+
+/* Teaching 特有 */
+.item-title { font-size: 1.05rem; color: #222; display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.item-meta { font-size: 0.95rem; color: #555; margin-top: 4px; }
+
+/* 3. 紧凑单行列表 (People 特有) */
+.compact-list { list-style: none; padding: 0; margin: 0; }
+.compact-list li {
+    padding: 4px 0;
+    border-bottom: 1px solid #f9f9f9;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.compact-list li:hover { background-color: #fafafa; }
+.person-name { font-size: 1rem; color: #222; font-weight: 500; }
+.meta-info { font-size: 0.9rem; color: #777; }
+.destination { font-size: 0.9rem; color: var(--link-color); margin-left: 4px; }
+
+/* ==========================================================================
+   Agent Lab 特有组件 (Agent Lab Subpage)
+   ========================================================================== */
+.github-hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #24292e;
+    color: #fff;
+    padding: 20px 25px;
+    border-radius: 8px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    transition: transform 0.2s ease;
+}
+.github-hero:hover { transform: translateY(-2px); text-decoration: none; }
+.github-hero-left { display: flex; flex-direction: column; }
+.github-hero-title { font-size: 1.2rem; font-weight: 600; margin-bottom: 4px;}
+.github-hero-sub { font-size: 0.95rem; color: #babbbd; }
+.github-icon { font-size: 2rem; }
+
+.repo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 15px;
+}
+.repo-card {
+    border: 1px solid var(--border-color);
+    padding: 15px;
+    border-radius: 6px;
+    background-color: var(--card-bg);
+    display: flex;
+    flex-direction: column;
+}
+.repo-name { font-size: 1.05rem; font-weight: 600; margin-bottom: 5px; }
+.repo-desc { font-size: 0.9rem; color: #555; margin-bottom: 12px; line-height: 1.4; flex-grow: 1; }
+.badge-container { display: flex; flex-wrap: wrap; gap: 5px; }
+
+/* ==========================================================================
+   徽章系统 (Badges - All Pages)
+   ========================================================================== */
+.badge {
+    display: inline-block;
+    padding: 2px 6px;
+    margin-top: 4px;
+    margin-right: 4px;
+    font-size: 0.75rem;
+    color: #444;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+a.badge:hover { background-color: #f0f0f0; text-decoration: none; }
+
+.badge-domain { background-color: #e9ecef; border: none; color: #555; }
+.badge-uol { background-color: #f0f4f8; color: #0056b3; border: none; margin:0;}
+.badge-tue { background-color: #fdf5e6; color: #d35400; border: none; margin:0;}
+.badge-tutorial { background-color: #f4f6f8; color: #444; border: 1px solid #ddd; margin:0;}
+.badge-phd { background-color: #fdf5e6; color: #d35400; border: none; padding: 2px 6px; margin:0;}
+.badge-msc { background-color: #f4f6f8; color: #444; border: 1px solid #ddd; padding: 1px 5px; margin:0;}
+.badge-bsc { background-color: #e6f9ec; color: #1e8449; border: none; padding: 2px 6px; margin:0;}
+
+/* ==========================================================================
+   手机端适配 (Mobile Responsiveness)
+   ========================================================================== */
+@media (max-width: 600px) {
+    .header-content { flex-direction: column; align-items: center; text-align: center; }
+    .research-grid, .repo-grid { grid-template-columns: 1fr; }
+    .links { justify-content: center; display: flex; flex-wrap: wrap; }
+    .item-title { align-items: flex-start; }
+}
