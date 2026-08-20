@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Multi-Agent Systems - Meng Fang</title>
+    <link rel="stylesheet" href="../style.css">
+
+<style>
+    .citation {
+        font-size: 0.78em;
+        vertical-align: super;
+        margin-left: 2px;
+        white-space: nowrap;
+    }
+    .citation a {
+        text-decoration: none;
+    }
+    .references-list {
+        padding-left: 1.6rem;
+    }
+    .references-list li {
+        margin-bottom: 0.75rem;
+        line-height: 1.45;
+    }
+    .references-list a {
+        word-break: break-word;
+    }
+</style>
+
+</head>
+<body>
+
+    <header>
+        <a href="../index.html" class="back-link">← Back to Home</a>
+        <h1>LLM Multi-Agent Systems: Problem Scenarios, Benchmarks, Core Capabilities, and Capability Construction</h1>
+                <p class="meta-info">Date: August 20, 2026&nbsp;&nbsp;|&nbsp;&nbsp;Estimated Reading Time: 13 min&nbsp;&nbsp;|&nbsp;&nbsp;Author: Meng Fang</p>
+       
+    </header>
+
+    <section>
+        <h2>Overview</h2>
+        <p>
+            This report organises LLM-based multi-agent systems along a single conceptual chain:
+            <strong>problem scenario → benchmark/environment → required multi-agent capabilities → capability construction</strong>.
+        </p>
+        <p>
+            The problem taxonomy focuses on settings where multiple agents are intrinsic to the task
+            or provide a clear structural advantage beyond simply increasing inference-time computation.
+            The capability taxonomy then abstracts the recurring coordination requirements that arise
+            across these scenarios.
+        </p>
+    </section>
+
+    <section>
+        <h2>Problem Scenarios</h2>
+        <p class="meta-info"><strong>Table 1.</strong> Representative problem scenarios for LLM-based multi-agent systems.</p>
+        <div class="table-container">
+            <table class="research-table">
+                <thead>
+                    <tr>
+                        <th>Problem Scenario</th>
+                        <th>Problem Description</th>
+                        <th>Why Multiple Agents?</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Collaborative Formal Proof Search and Verification</strong></td>
+                        <td>Formal proof decomposition, parallel lemma and proof search, checking of intermediate steps, and repair of failed proof attempts.</td>
+                        <td>Parallel exploration can cover a large proof-search space, while independent prover, critic, and verifier roles can reduce correlated reasoning and formalisation errors.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Large-Scale Software Development</strong></td>
+                        <td>Architecture design, multi-module implementation, testing, debugging, code review, integration, and repository-level maintenance.</td>
+                        <td>Large software systems contain modular but interdependent artefacts. Specialised agents can work concurrently on different modules and roles while providing independent testing, review, and integration.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Parallel Deep Research and Evidence Synthesis</strong></td>
+                        <td>Parallel information search, literature analysis, evidence extraction, fact verification, and synthesis of findings into coherent reports or decisions.</td>
+                        <td>Information gathering is naturally parallelisable, while independent search paths improve coverage and source diversity. Multiple agents can also cross-check conflicting evidence before synthesis.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>End-to-End Scientific Discovery</strong></td>
+                        <td>Literature exploration, hypothesis generation, experimental design, implementation, data analysis, interpretation, and scientific critique.</td>
+                        <td>Scientific discovery combines heterogeneous stages and expertise. Multiple agents enable parallel hypothesis exploration, specialised scientific roles, independent validation, and iterative feedback between experimentation and reasoning.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Multidisciplinary Clinical Diagnosis and Treatment Planning</strong></td>
+                        <td>Multiple specialists analyse heterogeneous clinical evidence, formulate diagnoses, assess risks, and jointly develop or evaluate treatment plans for complex cases.</td>
+                        <td>Complex clinical decisions require complementary expertise and evidence from different modalities or specialties. Independent assessments can be compared and reconciled before reaching a joint decision.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Multi-Party Business Negotiation and Contracting</strong></td>
+                        <td>Multiple organisations or stakeholders negotiate prices, quantities, delivery conditions, service levels, contractual terms, and other business agreements.</td>
+                        <td>Multiple decision makers are intrinsic to the problem: parties have distinct objectives, constraints, preferences, and potentially private information.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Supply-Chain Planning and Logistics Coordination</strong></td>
+                        <td>Suppliers, manufacturers, warehouses, carriers, and retailers coordinate procurement, production, inventory, transportation, and delivery decisions.</td>
+                        <td>Information, resources, and control are distributed across different actors, while local plans are coupled through shared resources, temporal dependencies, and operational constraints.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Embodied Team Tasks with Complementary Capabilities</strong></td>
+                        <td>Multiple embodied agents or robots cooperate on navigation, exploration, construction, manipulation, transportation, rescue, or related team tasks.</td>
+                        <td>Agents may differ in location, perception, tools, embodiment, or action capabilities. Successful execution therefore requires distributed sensing, complementary actions, and spatial or temporal coordination.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Long-Horizon Enterprise Workflow Automation</strong></td>
+                        <td>Multi-stage business processes spanning heterogeneous tools, applications, databases, documents, and organisational functions.</td>
+                        <td>Enterprise workflows contain heterogeneous subtasks, long-range dependencies, specialised tool access, and failure-recovery requirements that favour specialised agents and dynamic hand-offs.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Population-Scale Social and Institutional Simulation</strong></td>
+                        <td>Large populations of language agents represent individuals, organisations, or institutions and interact repeatedly to study norms, markets, information diffusion, policy effects, and other collective phenomena.</td>
+                        <td>Multiple interacting autonomous actors are intrinsic to the phenomenon being studied. Population-level outcomes emerge from heterogeneous local behaviours and repeated interactions.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section>
+        <h2>Benchmarks and Evaluation Environments</h2>
+        <p class="meta-info">
+            <strong>Table 2.</strong> Representative benchmarks and environments for the problem scenarios above.
+            “Yes” denotes a dedicated MAS benchmark, “Partial” denotes partial scenario coverage,
+            and “No” indicates reliance primarily on general-agent benchmarks or application-specific testbeds.
+        </p>
+        <div class="table-container">
+            <table class="research-table">
+                <thead>
+                    <tr>
+                        <th>Problem Scenario</th>
+                        <th>Dedicated MAS Benchmark?</th>
+                        <th>Benchmark / Environment</th>
+                        <th>Note</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Collaborative Formal Proof Search and Verification</strong></td><td><strong>No</strong></td><td>miniF2F<sup class="citation">[<a href="#ref-1">1</a>]</sup>; ProofNet<sup class="citation">[<a href="#ref-2">2</a>]</sup></td><td>Strong formal-proving benchmarks exist, but they are not multi-agent benchmarks and do not explicitly evaluate collaborative proof search, communication, or independent verification.</td></tr>
+                    <tr><td><strong>Large-Scale Software Development</strong></td><td><strong>Partial</strong></td><td>MultiAgentBench--Coding<sup class="citation">[<a href="#ref-3">3</a>]</sup>; SWE-bench<sup class="citation">[<a href="#ref-4">4</a>]</sup></td><td>MultiAgentBench explicitly evaluates multi-agent coding coordination, while SWE-bench provides realistic repository-level tasks. Neither fully captures large-scale multi-module development and integration.</td></tr>
+                    <tr><td><strong>Parallel Deep Research and Evidence Synthesis</strong></td><td><strong>Yes</strong></td><td>MultiAgentBench--Research<sup class="citation">[<a href="#ref-3">3</a>]</sup>; IDRBench<sup class="citation">[<a href="#ref-5">5</a>]</sup></td><td>MultiAgentBench directly evaluates multi-agent research collaboration. IDRBench evaluates interactive deep research and provides a modular multi-agent research framework.</td></tr>
+                    <tr><td><strong>End-to-End Scientific Discovery</strong></td><td><strong>No</strong></td><td>PhySciBench<sup class="citation">[<a href="#ref-6">6</a>]</sup></td><td>PhySciBench<sup class="citation">[<a href="#ref-6">6</a>]</sup> evaluates physical-science research tasks and is used with a multi-agent research framework, but does not benchmark a complete multi-agent hypothesis--experiment--analysis--critique cycle.</td></tr>
+                    <tr><td><strong>Multidisciplinary Clinical Diagnosis and Treatment Planning</strong></td><td><strong>Partial</strong></td><td>AI Hospital / MVME<sup class="citation">[<a href="#ref-7">7</a>]</sup></td><td>A native multi-agent clinical interaction benchmark covers symptom collection, examination, and diagnosis, but not yet a full multidisciplinary specialist and treatment-planning setting.</td></tr>
+                    <tr><td><strong>Multi-Party Business Negotiation and Contracting</strong></td><td><strong>Yes</strong></td><td>AgenticPay<sup class="citation">[<a href="#ref-8">8</a>]</sup></td><td>Explicit multi-agent buyer--seller negotiation benchmark with private constraints and valuations, from bilateral bargaining to many-to-many markets.</td></tr>
+                    <tr><td><strong>Supply-Chain Planning and Logistics Coordination</strong></td><td><strong>Partial</strong></td><td>Market-Bench<sup class="citation">[<a href="#ref-9">9</a>]</sup></td><td>Native multi-agent supply-chain market environment covering procurement auctions and retail competition, but not full production--inventory--transport logistics coordination.</td></tr>
+                    <tr><td><strong>Embodied Team Tasks with Complementary Capabilities</strong></td><td><strong>Yes</strong></td><td>TeamCraft<sup class="citation">[<a href="#ref-10">10</a>]</sup>; MECoBench<sup class="citation">[<a href="#ref-11">11</a>]</sup></td><td>Both explicitly benchmark embodied multi-agent collaboration, including communication, heterogeneous agents, and joint task completion.</td></tr>
+                    <tr><td><strong>Long-Horizon Enterprise Workflow Automation</strong></td><td><strong>No</strong></td><td>WorkArena<sup class="citation">[<a href="#ref-12">12</a>]</sup>; OSWorld<sup class="citation">[<a href="#ref-13">13</a>]</sup></td><td>Realistic enterprise and computer-use environments exist, but they are primarily designed for individual agents and do not directly assess inter-agent workflow coordination.</td></tr>
+                    <tr><td><strong>Population-Scale Social and Institutional Simulation</strong></td><td><strong>No*</strong></td><td>AgentSociety<sup class="citation">[<a href="#ref-14">14</a>]</sup></td><td>Large-scale multi-agent simulation platforms exist, but there is not yet a broadly adopted standardised benchmark for population-scale institutional simulation and coordination.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section>
+        <h2>Core Multi-Agent Capabilities</h2>
+        <p class="meta-info"><strong>Table 3.</strong> Core coordination capabilities abstracted from the problem scenarios.</p>
+        <div class="table-container">
+            <table class="research-table">
+                <thead>
+                    <tr><th>ID</th><th>Core Capability</th><th>Core Question</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>C1</strong></td><td><strong>Task Decomposition and Dependency Structuring</strong></td><td>What needs to be done, and how are subtasks related?</td></tr>
+                    <tr><td><strong>C2</strong></td><td><strong>Role, Task, and Resource Allocation</strong></td><td>Who should do what, with which model, tool, or resource?</td></tr>
+                    <tr><td><strong>C3</strong></td><td><strong>Communication and Information Sharing</strong></td><td>What information should be exchanged, with whom, and when?</td></tr>
+                    <tr><td><strong>C4</strong></td><td><strong>State, Memory, and Belief Management</strong></td><td>What does the system or each agent know, remember, and believe?</td></tr>
+                    <tr><td><strong>C5</strong></td><td><strong>Joint Planning, Coordination, and Synchronisation</strong></td><td>How should interdependent actions fit together?</td></tr>
+                    <tr><td><strong>C6</strong></td><td><strong>Monitoring, Adaptation, and Replanning</strong></td><td>Is execution proceeding correctly, and what should change when it is not?</td></tr>
+                    <tr><td><strong>C7</strong></td><td><strong>Aggregation, Verification, and Conflict Resolution</strong></td><td>How are outputs checked, reconciled, and combined?</td></tr>
+                    <tr><td><strong>C8</strong></td><td><strong>Partner, Intent, and Strategic Modelling</strong></td><td>What are other agents capable of, trying to do, or likely to do next?</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section>
+        <h2>Mapping Problem Scenarios to Capabilities</h2>
+        <p class="meta-info"><strong>Table 4.</strong> Mapping from problem scenarios to their primary multi-agent capability requirements.</p>
+        <div class="table-container">
+            <table class="research-table">
+                <thead>
+                    <tr><th>Problem Scenario</th><th>Primary Capabilities</th><th>Why These Capabilities Matter</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Collaborative Formal Proof Search and Verification</strong></td><td><strong>C1, C2, C3, C6, C7</strong></td><td>Proof branches and lemmas must be decomposed and allocated; candidate proofs require independent checking and iterative repair.</td></tr>
+                    <tr><td><strong>Large-Scale Software Development</strong></td><td><strong>C1, C2, C3, C5, C6, C7</strong></td><td>Modules and roles are interdependent; implementation must be coordinated, integrated, tested, monitored, and revised.</td></tr>
+                    <tr><td><strong>Parallel Deep Research and Evidence Synthesis</strong></td><td><strong>C1, C2, C3, C4, C7</strong></td><td>Search space must be partitioned; evidence from different agents must retain provenance and be reconciled.</td></tr>
+                    <tr><td><strong>End-to-End Scientific Discovery</strong></td><td><strong>C1, C2, C4, C5, C6, C7</strong></td><td>Hypothesis generation, experimentation, analysis, and critique form a long iterative loop requiring specialised roles and validation.</td></tr>
+                    <tr><td><strong>Multidisciplinary Clinical Diagnosis and Treatment Planning</strong></td><td><strong>C2, C3, C4, C7</strong></td><td>Specialists contribute heterogeneous evidence and recommendations that must be integrated under uncertainty.</td></tr>
+                    <tr><td><strong>Multi-Party Business Negotiation and Contracting</strong></td><td><strong>C3, C4, C6, C7, C8</strong></td><td>Parties hold distinct or private preferences and must infer intentions, adapt strategies, and reconcile conflicts.</td></tr>
+                    <tr><td><strong>Supply-Chain Planning and Logistics Coordination</strong></td><td><strong>C2, C3, C4, C5, C6</strong></td><td>Decisions and resources are distributed across actors whose local plans must satisfy shared operational and temporal constraints.</td></tr>
+                    <tr><td><strong>Embodied Team Tasks with Complementary Capabilities</strong></td><td><strong>C2, C3, C4, C5, C6</strong></td><td>Agents have different observations and action capabilities and require real-time allocation, communication, synchronisation, and replanning.</td></tr>
+                    <tr><td><strong>Long-Horizon Enterprise Workflow Automation</strong></td><td><strong>C1, C2, C4, C5, C6, C7</strong></td><td>Long workflows require dynamic routing, state tracking, dependency management, recovery from failures, and result validation.</td></tr>
+                    <tr><td><strong>Population-Scale Social and Institutional Simulation</strong></td><td><strong>C3, C4, C6, C8</strong></td><td>Persistent heterogeneous agents must maintain beliefs, relationships, and intentions, and adapt through repeated interaction.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section>
+        <h2>Building Multi-Agent Capabilities</h2>
+        <p>
+            We use <strong>capability construction</strong> broadly to include mechanisms that instantiate
+            or improve a coordination capability. These mechanisms need not follow a single
+            data → environment → training pipeline. Depending on the capability, construction may rely on
+            architectural scaffolding, prompting and protocol design, synthetic-data post-training,
+            learned controllers, reinforcement learning or self-play, external memory or solver modules,
+            and test-time search or verification.
+        </p>
+
+        <p class="meta-info"><strong>Table 5.</strong> Representative approaches for building core multi-agent capabilities.</p>
+
+        <div class="table-container">
+            <table class="research-table">
+                <thead>
+                    <tr>
+                        <th>Capability</th>
+                        <th>Approaches for Building the Capability</th>
+                        <th>Representative Methods / Papers</th>
+                        <th>Current Status / Gap</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>C1. Task Decomposition and Dependency Structuring</strong></td>
+                        <td><strong>Planner/orchestrator scaffolding</strong> that explicitly produces subtasks or dependency graphs; <strong>synthetic compositional task generation + SFT</strong>; process supervision on decomposition; search or RL using downstream execution quality.</td>
+                        <td>TaskCraft<sup class="citation">[<a href="#ref-15">15</a>]</sup>; BUTTON<sup class="citation">[<a href="#ref-16">16</a>]</sup>; MagicAgent<sup class="citation">[<a href="#ref-17">17</a>]</sup>; SMART-LLM<sup class="citation">[<a href="#ref-18">18</a>]</sup>; Magentic-One<sup class="citation">[<a href="#ref-19">19</a>]</sup></td>
+                        <td>Synthetic task construction is emerging, but much current MAS decomposition is still obtained through prompting or orchestration rather than learned as a dedicated capability.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>C2. Role, Task, and Resource Allocation</strong></td>
+                        <td>Rule- or solver-based assignment; capability profiling; auction or market mechanisms; <strong>learned routers/controllers</strong>; cost-aware RL; dynamic reassignment from execution feedback.</td>
+                        <td>MasRouter<sup class="citation">[<a href="#ref-20">20</a>]</sup>; SMART-LLM<sup class="citation">[<a href="#ref-18">18</a>]</sup>; COHERENT<sup class="citation">[<a href="#ref-21">21</a>]</sup></td>
+                        <td>Allocation is increasingly learnable, but most systems still assume manually specified roles or agent capability profiles.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>C3. Communication and Information Sharing</strong></td>
+                        <td>Fixed communication protocols and topologies; shared workspace or blackboard; selective message generation; <strong>SFT/DPO on interaction traces</strong>; communication-cost regularisation; topology optimisation; emergent communication via RL/MARL.</td>
+                        <td>Optima<sup class="citation">[<a href="#ref-22">22</a>]</sup>; communication-structure optimisation methods; language-guided emergent communication<sup class="citation">[<a href="#ref-23">23</a>]</sup></td>
+                        <td>Architectural and learned approaches both exist, but scalable selective communication—deciding what to send, to whom, and when—remains difficult.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>C4. State, Memory, and Belief Management</strong></td>
+                        <td>External or shared memory; episodic retrieval and summarisation; structured world/belief state; Theory-of-Mind prompting; supervised hidden-state or mental-state prediction; recurrent and long-horizon learning.</td>
+                        <td>SOTOPIA-π<sup class="citation">[<a href="#ref-24">24</a>]</sup>; ToMAgent<sup class="citation">[<a href="#ref-25">25</a>]</sup>; LLM-Coordination<sup class="citation">[<a href="#ref-26">26</a>]</sup>; shared-memory and blackboard architectures</td>
+                        <td>Mostly implemented through external memory and prompting. Dedicated training for persistent distributed beliefs remains relatively underdeveloped.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>C5. Joint Planning, Coordination, and Synchronisation</strong></td>
+                        <td>Centralised planning; distributed plan proposal and merging; hierarchical planning; classical planner/LLM hybrids; execution-feedback loops; expert-plan SFT; team-reward RL/MARL.</td>
+                        <td>SMART-LLM<sup class="citation">[<a href="#ref-18">18</a>]</sup>; COHERENT<sup class="citation">[<a href="#ref-21">21</a>]</sup>; LLM-Coordination<sup class="citation">[<a href="#ref-26">26</a>]</sup>; hierarchical LLM + symbolic-planner approaches</td>
+                        <td>Planning is well represented architecturally, but relatively little work directly post-trains LLMs for robust joint planning and synchronisation.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>C6. Monitoring, Adaptation, and Replanning</strong></td>
+                        <td>Progress ledgers or watchdogs; critic or failure detectors; execution-feedback loops; <strong>failure and perturbation injection</strong>; recovery demonstrations; adaptive orchestration; RL under dynamic perturbations.</td>
+                        <td>Magentic-One<sup class="citation">[<a href="#ref-19">19</a>]</sup>; COHERENT<sup class="citation">[<a href="#ref-21">21</a>]</sup>; ToolMaze<sup class="citation">[<a href="#ref-27">27</a>]</sup>; Gaia2<sup class="citation">[<a href="#ref-28">28</a>]</sup></td>
+                        <td>Strong system-level mechanisms and new failure-focused environments exist, but capability-specific post-training remains sparse.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>C7. Aggregation, Verification, and Conflict Resolution</strong></td>
+                        <td>Majority voting and ensembling; learned judges and verifiers; critic–revision loops; multi-agent debate; formal or executable verification; synthetic critique data + SFT; preference learning; test-time compute scaling.</td>
+                        <td>DebateCV / Debate-SFT<sup class="citation">[<a href="#ref-29">29</a>]</sup>; Multi-Agent Verification (MAV)<sup class="citation">[<a href="#ref-30">30</a>]</sup>; generator–critic–judge systems</td>
+                        <td>Relatively mature at test time. Recent work is beginning to convert synthetic disagreement, critique, and debate into post-training data.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>C8. Partner, Intent, and Strategic Modelling</strong></td>
+                        <td>Explicit partner profiles and trust scores; belief and Theory-of-Mind models; next-action or intent prediction; trajectory-based opponent modelling; self-play; population-based training; game-theoretic strategic adaptation.</td>
+                        <td>CICERO<sup class="citation">[<a href="#ref-31">31</a>]</sup>; SOTOPIA-π<sup class="citation">[<a href="#ref-24">24</a>]</sup>; ToMAgent<sup class="citation">[<a href="#ref-25">25</a>]</sup>; self-play language games</td>
+                        <td>There is a strong tradition in games and social agents, but general partner modelling across heterogeneous, open-ended LLM agents remains immature.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p>
+            The key observation is that there is currently <strong>no single recipe</strong> for constructing
+            multi-agent capabilities. Different capabilities are instantiated through different combinations
+            of system design, data generation, learning, interaction, external modules, and test-time computation.
+            Current LLM-MAS research remains strongly <strong>scaffolding-heavy</strong>; capability-specific
+            post-training that internalises coordination behaviour into model parameters is still comparatively limited.
+        </p>
+    </section>
+
+    <section>
+        <h2>Framework Summary</h2>
+        <ul class="compact-list">
+            <li><strong>Problem Scenario</strong> <span class="meta-info">→ Where and why are multiple agents structurally useful?</span></li>
+            <li><strong>Benchmark / Environment</strong> <span class="meta-info">→ How are these multi-agent settings currently evaluated?</span></li>
+            <li><strong>Core Capability</strong> <span class="meta-info">→ What coordination abilities are required?</span></li>
+            <li><strong>Capability Construction</strong> <span class="meta-info">→ How can those abilities be engineered, learned, or improved?</span></li>
+        </ul>
+    </section>
+
+
+    <section id="references">
+        <h2>References</h2>
+        <ol class="references-list">
+            <li id="ref-1">
+                Zheng, K., Han, J. M., & Polu, S. (2021).
+                <em>miniF2F: A Cross-System Benchmark for Formal Olympiad-Level Mathematics.</em>
+                arXiv:2109.00110.
+                <a href="https://arxiv.org/abs/2109.00110">arXiv</a>
+            </li>
+            <li id="ref-2">
+                Azerbayev, Z., Piotrowski, B., Schoelkopf, H., Ayers, E. W., Radev, D., & Avigad, J. (2023).
+                <em>ProofNet: Autoformalizing and Formally Proving Undergraduate-Level Mathematics.</em>
+                arXiv:2302.12433.
+                <a href="https://arxiv.org/abs/2302.12433">arXiv</a>
+            </li>
+            <li id="ref-3">
+                Zhu, K., Du, H., Hong, Z., et al. (2025).
+                <em>MultiAgentBench: Evaluating the Collaboration and Competition of LLM Agents.</em>
+                Proceedings of ACL 2025, 8580–8622.
+                <a href="https://aclanthology.org/2025.acl-long.421/">ACL Anthology</a>
+            </li>
+            <li id="ref-4">
+                Jimenez, C. E., Yang, J., Wettig, A., Yao, S., Pei, K., Press, O., & Narasimhan, K. R. (2024).
+                <em>SWE-bench: Can Language Models Resolve Real-World GitHub Issues?</em>
+                ICLR 2024.
+                <a href="https://arxiv.org/abs/2310.06770">arXiv</a>
+            </li>
+            <li id="ref-5">
+                Feng, Y., Huang, Q., Xie, X., Yang, Z., Yu, J., Chen, W., & Tung, A. K. H. (2026).
+                <em>IDRBench: Interactive Deep Research Benchmark.</em>
+                arXiv:2601.06676.
+                <a href="https://arxiv.org/abs/2601.06676">arXiv</a>
+            </li>
+            <li id="ref-6">
+                Jiang, Y., Yang, T., Cui, T., et al. (2026).
+                <em>Deep Research in Physical Sciences: A Multi-Agent Framework and Comprehensive Benchmark.</em>
+                arXiv:2606.18648.
+                <a href="https://arxiv.org/abs/2606.18648">arXiv</a>
+            </li>
+            <li id="ref-7">
+                Fan, Z., Wei, L., Tang, J., Chen, W., Wang, S., Wei, Z., & Huang, F. (2025).
+                <em>AI Hospital: Benchmarking Large Language Models in a Multi-Agent Medical Interaction Simulator.</em>
+                COLING 2025.
+                <a href="https://aclanthology.org/2025.coling-main.680/">ACL Anthology</a>
+            </li>
+            <li id="ref-8">
+                Liu, X., Gu, S., & Song, D. (2026).
+                <em>AgenticPay: A Multi-Agent LLM Negotiation System for Buyer-Seller Transactions.</em>
+                arXiv:2602.06008.
+                <a href="https://arxiv.org/abs/2602.06008">arXiv</a>
+            </li>
+            <li id="ref-9">
+                Zheng, Y., Duan, H., Zhang, Z., Zhu, Y., Min, X., & Zhai, G. (2026).
+                <em>Market-Bench: Benchmarking Large Language Models on Economic and Trade Competition.</em>
+                arXiv:2604.05523.
+                <a href="https://arxiv.org/abs/2604.05523">arXiv</a>
+            </li>
+            <li id="ref-10">
+                Long, Q., Li, Z., Gong, R., Wu, Y. N., Terzopoulos, D., & Gao, X. (2024).
+                <em>TeamCraft: A Benchmark for Multi-Modal Multi-Agent Systems in Minecraft.</em>
+                arXiv:2412.05255.
+                <a href="https://arxiv.org/abs/2412.05255">arXiv</a>
+            </li>
+            <li id="ref-11">
+                Liu, Q., Zhang, J., Hu, J., Wang, S., & Wei, Z. (2026).
+                <em>MECoBench: A Systematic Study of Multimodal Agent Collaboration in Embodied Environments.</em>
+                arXiv:2606.31966.
+                <a href="https://arxiv.org/abs/2606.31966">arXiv</a>
+            </li>
+            <li id="ref-12">
+                Drouin, A., Gasse, M., Caccia, M., et al. (2024).
+                <em>WorkArena: How Capable Are Web Agents at Solving Common Knowledge Work Tasks?</em>
+                arXiv:2403.07718.
+                <a href="https://arxiv.org/abs/2403.07718">arXiv</a>
+            </li>
+            <li id="ref-13">
+                Xie, T., Zhang, D., Chen, J., et al. (2024).
+                <em>OSWorld: Benchmarking Multimodal Agents for Open-Ended Tasks in Real Computer Environments.</em>
+                NeurIPS 2024.
+                <a href="https://arxiv.org/abs/2404.07972">arXiv</a>
+            </li>
+            <li id="ref-14">
+                Piao, J., Yan, Y., Zhang, J., et al. (2025).
+                <em>AgentSociety: Large-Scale Simulation of LLM-Driven Generative Agents Advances Understanding of Human Behaviors and Society.</em>
+                arXiv:2502.08691.
+                <a href="https://arxiv.org/abs/2502.08691">arXiv</a>
+            </li>
+
+            <li id="ref-15">
+                Shi, D., Cao, J., Chen, Q., et al. (2025).
+                <em>TaskCraft: Automated Generation of Agentic Tasks.</em>
+                arXiv:2506.10055.
+                <a href="https://arxiv.org/abs/2506.10055">arXiv</a>
+            </li>
+            <li id="ref-16">
+                Chen, M., Sun, H., Li, T., et al. (2024).
+                <em>Facilitating Multi-turn Function Calling for LLMs via Compositional Instruction Tuning.</em>
+                arXiv:2410.12952.
+                <a href="https://arxiv.org/abs/2410.12952">arXiv</a>
+            </li>
+            <li id="ref-17">
+                Ren, X., Dong, S., Yang, C., et al. (2026).
+                <em>MagicAgent: Towards Generalized Agent Planning.</em>
+                arXiv:2602.19000.
+                <a href="https://arxiv.org/abs/2602.19000">arXiv</a>
+            </li>
+            <li id="ref-18">
+                Kannan, S. S., Venkatesh, V. L. N., & Min, B.-C. (2023).
+                <em>SMART-LLM: Smart Multi-Agent Robot Task Planning using Large Language Models.</em>
+                arXiv:2309.10062.
+                <a href="https://arxiv.org/abs/2309.10062">arXiv</a>
+            </li>
+            <li id="ref-19">
+                Fourney, A., Bansal, G., Mozannar, H., et al. (2024).
+                <em>Magentic-One: A Generalist Multi-Agent System for Solving Complex Tasks.</em>
+                arXiv:2411.04468.
+                <a href="https://arxiv.org/abs/2411.04468">arXiv</a>
+            </li>
+            <li id="ref-20">
+                Yue, Y., Zhang, G., Liu, B., Wan, G., Wang, K., Cheng, D., & Qi, Y. (2025).
+                <em>MasRouter: Learning to Route LLMs for Multi-Agent Systems.</em>
+                ACL 2025.
+                <a href="https://aclanthology.org/2025.acl-long.757/">ACL Anthology</a>
+            </li>
+            <li id="ref-21">
+                Liu, K., Tang, Z., Wang, D., Wang, Z., Zhao, B., & Li, X. (2024).
+                <em>COHERENT: Collaboration of Heterogeneous Multi-Robot System with Large Language Models.</em>
+                arXiv:2409.15146.
+                <a href="https://arxiv.org/abs/2409.15146">arXiv</a>
+            </li>
+            <li id="ref-22">
+                Chen, W., Yuan, J., Qian, C., Yang, C., Liu, Z., & Sun, M. (2024).
+                <em>Optima: Optimizing Effectiveness and Efficiency for LLM-Based Multi-Agent System.</em>
+                arXiv:2410.08115.
+                <a href="https://arxiv.org/abs/2410.08115">arXiv</a>
+            </li>
+            <li id="ref-23">
+                Kim, Y., Seo, S., Park, J., Bennis, M., Kim, S.-L., & Choi, J. (2024).
+                <em>Knowledge Distillation from Language-Oriented to Emergent Communication for Multi-Agent Remote Control.</em>
+                arXiv:2401.12624.
+                <a href="https://arxiv.org/abs/2401.12624">arXiv</a>
+            </li>
+            <li id="ref-24">
+                Wang, R., Yu, H., Zhang, W., et al. (2024).
+                <em>SOTOPIA-π: Interactive Learning of Socially Intelligent Language Agents.</em>
+                ACL 2024.
+                <a href="https://aclanthology.org/2024.acl-long.698/">ACL Anthology</a>
+            </li>
+            <li id="ref-25">
+                Hwang, E., Yin, Y., Carenini, G., West, P., & Shwartz, V. (2025).
+                <em>Infusing Theory of Mind into Socially Intelligent LLM Agents.</em>
+                arXiv:2509.22887.
+                <a href="https://arxiv.org/abs/2509.22887">arXiv</a>
+            </li>
+            <li id="ref-26">
+                Agashe, S., Fan, Y., Reyna, A., & Wang, X. E. (2025).
+                <em>LLM-Coordination: Evaluating and Analyzing Multi-Agent Coordination Abilities in Large Language Models.</em>
+                Findings of NAACL 2025.
+                <a href="https://aclanthology.org/2025.findings-naacl.448/">ACL Anthology</a>
+            </li>
+            <li id="ref-27">
+                Zhu, D., Ma, X., Shen, Y., et al. (2026).
+                <em>When Tools Fail: Benchmarking Dynamic Replanning and Anomaly Recovery in LLM Agents.</em>
+                arXiv:2606.05806.
+                <a href="https://arxiv.org/abs/2606.05806">arXiv</a>
+            </li>
+            <li id="ref-28">
+                Froger, R., Andrews, P., Bettini, M., et al. (2026).
+                <em>Gaia2: Benchmarking LLM Agents on Dynamic and Asynchronous Environments.</em>
+                ICLR 2026.
+                <a href="https://arxiv.org/abs/2602.11964">arXiv</a>
+            </li>
+            <li id="ref-29">
+                He, H., Li, Y., Wen, D., Chen, Y., Cheng, R., Chen, D., & Lau, F. C. M. (2025).
+                <em>Debating Truth: Debate-Driven Claim Verification with Multiple Large Language Model Agents.</em>
+                arXiv:2507.19090.
+                <a href="https://arxiv.org/abs/2507.19090">arXiv</a>
+            </li>
+            <li id="ref-30">
+                Lifshitz, S., McIlraith, S. A., & Du, Y. (2025).
+                <em>Multi-Agent Verification: Scaling Test-Time Compute with Multiple Verifiers.</em>
+                arXiv:2502.20379.
+                <a href="https://arxiv.org/abs/2502.20379">arXiv</a>
+            </li>
+            <li id="ref-31">
+                Meta Fundamental AI Research Diplomacy Team (FAIR). (2022).
+                <em>Human-Level Play in the Game of Diplomacy by Combining Language Models with Strategic Reasoning.</em>
+                Science, 378(6624), 1067–1074.
+                <a href="https://doi.org/10.1126/science.ade9097">DOI</a>
+            </li>
+        </ol>
+    </section>
+
+
+    <footer style="margin-top: 40px; padding-top: 15px; border-top: 1px solid #eaeaea; text-align: center; color: #888; font-size: 0.85rem;">
+        &copy; 2026 Meng Fang.
+    </footer>
+
+</body>
+</html>
