@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game AI - Meng Fang</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <style>
+        .games-intro {
+            font-size: 1.05rem;
+            color: #444;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .game-column {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+            box-sizing: border-box;
+        }
+
+        .game-column h2 {
+            margin-top: 0;
+            margin-bottom: 18px;
+        }
+
+        .game-teaser {
+            width: 100%;
+            display: block;
+            border-radius: 6px;
+            margin-bottom: 24px;
+        }
+
+        .game-summary {
+            color: #666;
+            line-height: 1.6;
+            margin: 0 0 22px 0;
+        }
+
+        .paper {
+            padding: 18px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .paper:first-of-type {
+            border-top: none;
+            padding-top: 0;
+        }
+
+        .paper h3 {
+            margin: 0 0 8px 0;
+            font-size: 1rem;
+            line-height: 1.45;
+        }
+
+        .paper p {
+            margin: 5px 0;
+            color: #555;
+            line-height: 1.55;
+            font-size: 0.95rem;
+        }
+
+        .paper-links {
+            margin-top: 8px !important;
+        }
+
+        @media (max-width: 768px) {
+            .games-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .game-column {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a href="../index.html" class="back-link">← Back to Home</a>
+        <h1>🎮 Game AI</h1>
+    </header>
+
+    <section>
+        <p class="games-intro">
+            I have worked on <strong>AI agents in game environments</strong>,
+            spanning text adventure games and visually rich video games.
+            These projects explore reinforcement learning, planning, reasoning,
+            exploration, generalization, morality, and safe decision making.
+        </p>
+
+        <div class="games-grid">
+
+            <!-- Text Adventure Games -->
+            <div class="game-column">
+                <h2>🗺️ Text Adventure Games</h2>
+
+                <img
+                    src="../assets/zork.jpg"
+                    alt="Text-based adventure games"
+                    class="game-teaser"
+                >
+
+                <p class="game-summary">
+                    Research on language-based game agents, from deep reinforcement
+                    learning and generalization to moral decision making, LLM reasoning,
+                    and planning.
+                </p>
+
+                <div class="paper">
+                    <h3>
+                        <a href="https://openreview.net/pdf?id=r1KcapkzCt" target="_blank">
+                            Monte Carlo Planning with Large Language Model for Text-Based Game Agents
+                        </a>
+                    </h3>
+                    <p>Zijing Shi, <strong>Meng Fang</strong>, Ling Chen</p>
+                    <p class="paper-links">
+                        <i>ICLR 2025</i> ·
+                        <a href="https://textgamer.github.io/mc-dml/" target="_blank">Project</a>
+                    </p>
+                </div>
+
+                <div class="paper">
+                    <h3>
+                        <a href="https://arxiv.org/abs/2401.09334" target="_blank">
+                            Large Language Models Are Neurosymbolic Reasoners
+                        </a>
+                    </h3>
+                    <p>
+                        <strong>Meng Fang</strong>*, Shilong Deng*, Yudi Zhang*,
+                        Zijing Shi, Ling Chen, Mykola Pechenizkiy, Jun Wang
+                    </p>
+                    <p class="paper-links">
+                        <i>AAAI 2024</i> ·
+                        <a href="https://github.com/hyintell/LLMSymbolic" target="_blank">Code</a>
+                    </p>
+                </div>
+
+                <div class="paper">
+                    <h3>Human-Guided Moral Decision Making in Text-based Games</h3>
+                    <p>
+                        Zijing Shi, <strong>Meng Fang</strong>, Ling Chen, Yali Du, Jun Wang
+                    </p>
+                    <p class="paper-links">
+                        <i>AAAI 2024: Safe, Robut, and Responsible AI (SRRAI)</i>
+                    </p>
+                </div>
+
+                <div class="paper">
+                    <h3>
+                        <a href="https://arxiv.org/abs/2305.04082" target="_blank">
+                            A Minimal Approach for Natural Language Action Space in Text-based Games
+                        </a>
+                    </h3>
+                    <p>
+                        Dongwon Kelvin Ryu, <strong>Meng Fang</strong>, Shirui Pan,
+                        Gholamreza Haffari, Ehsan Shareghi
+                    </p>
+                    <p class="paper-links">
+                        <i>CoNLL 2023</i> ·
+                        <a href="https://github.com/ktr0921/tac" target="_blank">Code</a>
+                    </p>
+                </div>
+
+                <div class="paper">
+                    <h3>
+                        <a href="https://openreview.net/pdf?id=CtS2Rs_aYk" target="_blank">
+                            Stay Moral and Explore: Learn to Behave Morally in Text-based Games
+                        </a>
+                    </h3>
+                    <p>
+                        Zijing Shi*, <strong>Meng Fang</strong>*, Yunqiu Xu,
+                        Ling Chen, Yali Du
+                    </p>
+                    <p class="paper-links"><i>ICLR 2023</i></p>
+                </div>
+
+                <div class="paper">
+                    <h3>Self-imitation Learning for Action Generation in Text-based Games</h3>
+                    <p>
+                        Zijing Shi, Yunqiu Xu, <strong>Meng Fang</strong>, Ling Chen
+                    </p>
+                    <p class="paper-links"><i>EACL 2023</i></p>
+                </div>
+
+                <div class="paper">
+                    <h3>
+                        <a href="https://arxiv.org/pdf/2204.09597.pdf" target="_blank">
+                            Perceiving the World: Question-guided Reinforcement Learning for Text-based Games
+                        </a>
+                    </h3>
+                    <p>
+                        Yunqiu Xu, <strong>Meng Fang</strong>, Ling Chen, Yali Du,
+                        Joey Tianyi Zhou, Chengqi Zhang
+                    </p>
+                    <p class="paper-links">
+                        <i>ACL 2022</i> ·
+                        <a href="https://github.com/YunqiuXu/QWA" target="_blank">Code</a>
+                    </p>
+                </div>
+
+                <div class="paper">
+                    <h3>
+                        <a href="https://aclanthology.org/2022.acl-short.56.pdf" target="_blank">
+                            Fire Burns, Sword Cuts: Commonsense Inductive Bias for Exploration in Text-based Games
+                        </a>
+                    </h3>
+                    <p>
+                        Dongwon Kelvin Ryu, Ehsan Shareghi, <strong>Meng Fang</strong>,
+                        Yunqiu Xu, Shirui Pan, Reza Haf
+                    </p>
+                    <p class="paper-links">
+                        <i>ACL 2022 (Short)</i> ·
+                        <a href="https://github.com/ktr0921/comm-expl-kg-a2c" target="_blank">Code</a>
+                    </p>
+                </div>
+
+                <div class="paper">
+                    <h3>
+                        <a href="https://arxiv.org/pdf/2109.09968.pdf" target="_blank">
+                            Generalization in Text-based Games via Hierarchical Reinforcement Learning
+                        </a>
+                    </h3>
+                    <p>
+                        Yunqiu Xu, <strong>Meng Fang</strong>, Ling Chen, Yali Du, Chengqi Zhang
+                    </p>
+                    <p class="paper-links">
+                        <i>EMNLP 2021 (Findings)</i> ·
+                        <a href="https://github.com/YunqiuXu/H-KGA" target="_blank">Code</a>
+                    </p>
+                </div>
+
+                <div class="paper">
+                    <h3>
+                        <a href="https://arxiv.org/pdf/2010.11655.pdf" target="_blank">
+                            Deep Reinforcement Learning with Stacked Hierarchical Attention for Text-based Games
+                        </a>
+                    </h3>
+                    <p>
+                        Yunqiu Xu*, <strong>Meng Fang</strong>*, Ling Chen, Yali Du,
+                        Joey Tianyi Zhou, Chengqi Zhang
+                    </p>
+                    <p class="paper-links">
+                        <i>NeurIPS 2020</i> ·
+                        <a href="https://github.com/YunqiuXu/SHA-KG" target="_blank">Code</a>
+                    </p>
+                </div>
+
+                <div class="paper">
+                    <h3>
+                        <a href="https://ieeexplore.ieee.org/document/9231622" target="_blank">
+                            Deep Reinforcement Learning with Transformers for Text Adventure Games
+                        </a>
+                    </h3>
+                    <p>
+                        Yunqiu Xu, Ling Chen, <strong>Meng Fang</strong>, Yang Wang, Chengqi Zhang
+                    </p>
+                    <p class="paper-links">
+                        <i>IEEE Conference on Games (CoG) 2020</i>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Video Games -->
+            <div class="game-column">
+                <h2>🎮 Video Games</h2>
+
+                <img
+                    src="../assets/doom.jpg"
+                    alt="Doom game environments"
+                    class="game-teaser"
+                >
+
+                <p class="game-summary">
+                    Research on visual game agents and game benchmarks, including
+                    generalization, continual reinforcement learning, and safe
+                    reinforcement learning in embodied environments.
+                </p>
+
+                <div class="paper">
+                    <h3>
+                        <a href="https://arxiv.org/abs/2503.08241" target="_blank">
+                            HASARD: A Benchmark for Vision-Based Safe Reinforcement Learning in Embodied Agents
+                        </a>
+                    </h3>
+                    <p>
+                        Tristan Tomilin, <strong>Meng Fang</strong>, Mykola Pechenizkiy
+                    </p>
+                    <p class="paper-links">
+                        <i>ICLR 2025</i> ·
+                        <a href="https://sites.google.com/view/hasard-bench/" target="_blank">Project</a>
+                    </p>
+                </div>
+
+                <div class="paper">
+                    <h3>COOM: A Game Benchmark for Continual Reinforcement Learning</h3>
+                    <p>
+                        Tristan Tomilin, <strong>Meng Fang</strong>, Yudi Zhang,
+                        Mykola Pechenizkiy
+                    </p>
+                    <p class="paper-links"><i>NeurIPS 2023</i></p>
+                </div>
+
+                <div class="paper">
+                    <h3>
+                        <a href="https://ieee-cog.org/2022/assets/papers/paper_30.pdf" target="_blank">
+                            LevDoom: A Benchmark for Generalization on Level Difficulty in Reinforcement Learning
+                        </a>
+                    </h3>
+                    <p>
+                        Tristan Tomilin, Tianhong Dai, <strong>Meng Fang</strong>,
+                        Mykola Pechenizkiy
+                    </p>
+                    <p class="paper-links">
+                        <i>CoG 2022</i> ·
+                        <a href="https://github.com/TTomilin/LevDoom" target="_blank">Code</a>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        &copy; 2026 Meng Fang.
+    </footer>
+
+</body>
+</html>
