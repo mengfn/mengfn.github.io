@@ -35,7 +35,7 @@
         <a href="../index.html" class="back-link">← Back to Home</a>
         <h1>LLM Multi-Agent Systems: Problem Scenarios, Benchmarks, Core Capabilities, and Capability Construction</h1>
                 <p class="meta-info">Date: August 20, 2026&nbsp;&nbsp;|&nbsp;&nbsp;Estimated Reading Time: 13 min&nbsp;&nbsp;|&nbsp;&nbsp;Author: Meng Fang</p>
-       
+        
     </header>
 
     <section>
@@ -140,7 +140,7 @@
                 <tbody>
                     <tr><td><strong>Collaborative Formal Proof Search and Verification</strong></td><td><strong>No</strong></td><td>miniF2F<sup class="citation">[<a href="#ref-1">1</a>]</sup>; ProofNet<sup class="citation">[<a href="#ref-2">2</a>]</sup></td><td>Strong formal-proving benchmarks exist, but they are not multi-agent benchmarks and do not explicitly evaluate collaborative proof search, communication, or independent verification.</td></tr>
                     <tr><td><strong>Large-Scale Software Development</strong></td><td><strong>Partial</strong></td><td>MultiAgentBench--Coding<sup class="citation">[<a href="#ref-3">3</a>]</sup>; SWE-bench<sup class="citation">[<a href="#ref-4">4</a>]</sup></td><td>MultiAgentBench explicitly evaluates multi-agent coding coordination, while SWE-bench provides realistic repository-level tasks. Neither fully captures large-scale multi-module development and integration.</td></tr>
-                    <tr><td><strong>Parallel Deep Research and Evidence Synthesis</strong></td><td><strong>Yes</strong></td><td>MultiAgentBench--Research<sup class="citation">[<a href="#ref-3">3</a>]</sup>; IDRBench<sup class="citation">[<a href="#ref-5">5</a>]</sup></td><td>MultiAgentBench directly evaluates multi-agent research collaboration. IDRBench evaluates interactive deep research and provides a modular multi-agent research framework.</td></tr>
+                    <tr><td><strong>Parallel Deep Research and Evidence Synthesis</strong></td><td><strong>Yes</strong></td><td>MultiAgentBench--Research<sup class="citation">[<a href="#ref-3">3</a>]</sup>; IDRBench<sup class="citation">[<a href="#ref-5">5</a>]</sup>; WideSearch<sup class="citation">[<a href="#ref-32">32</a>]</sup>; BrowseComp<sup class="citation">[<a href="#ref-33">33</a>]</sup></td><td>MultiAgentBench directly evaluates multi-agent research collaboration, while IDRBench targets interactive deep research. WideSearch evaluates broad, large-scale information collection and completeness, making it particularly suitable for parallel multi-agent search. BrowseComp evaluates persistent and strategic deep web search for hard-to-find information. WideSearch and BrowseComp are general agentic-search benchmarks rather than dedicated MAS benchmarks, but provide useful substrates for evaluating multi-agent research systems.</td></tr>
                     <tr><td><strong>End-to-End Scientific Discovery</strong></td><td><strong>No</strong></td><td>PhySciBench<sup class="citation">[<a href="#ref-6">6</a>]</sup></td><td>PhySciBench<sup class="citation">[<a href="#ref-6">6</a>]</sup> evaluates physical-science research tasks and is used with a multi-agent research framework, but does not benchmark a complete multi-agent hypothesis--experiment--analysis--critique cycle.</td></tr>
                     <tr><td><strong>Multidisciplinary Clinical Diagnosis and Treatment Planning</strong></td><td><strong>Partial</strong></td><td>AI Hospital / MVME<sup class="citation">[<a href="#ref-7">7</a>]</sup></td><td>A native multi-agent clinical interaction benchmark covers symptom collection, examination, and diagnosis, but not yet a full multidisciplinary specialist and treatment-planning setting.</td></tr>
                     <tr><td><strong>Multi-Party Business Negotiation and Contracting</strong></td><td><strong>Yes</strong></td><td>AgenticPay<sup class="citation">[<a href="#ref-8">8</a>]</sup></td><td>Explicit multi-agent buyer--seller negotiation benchmark with private constraints and valuations, from bilateral bargaining to many-to-many markets.</td></tr>
@@ -485,7 +485,22 @@
                 Science, 378(6624), 1067–1074.
                 <a href="https://doi.org/10.1126/science.ade9097">DOI</a>
             </li>
-        </ol>
+        
+            <li id="ref-32">
+                Wong, R., Wang, J., Zhao, J., Chen, L., Gao, Y., Zhang, L., Zhou, X., Wang, Z.,
+                Xiang, K., Zhang, G., Huang, W., Wang, Y., &amp; Wang, K. (2025).
+                <em>WideSearch: Benchmarking Agentic Broad Info-Seeking.</em>
+                arXiv:2508.07999.
+                <a href="https://arxiv.org/abs/2508.07999">arXiv</a>
+            </li>
+            <li id="ref-33">
+                Wei, J., Sun, Z., Papay, S., McKinney, S., Han, J., Fulford, I., Chung, H. W.,
+                Passos, A. T., Fedus, W., &amp; Glaese, A. (2025).
+                <em>BrowseComp: A Simple Yet Challenging Benchmark for Browsing Agents.</em>
+                arXiv:2504.12516.
+                <a href="https://arxiv.org/abs/2504.12516">arXiv</a>
+            </li>
+</ol>
     </section>
 
 
