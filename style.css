@@ -213,6 +213,7 @@ a.badge:hover { background-color: #f0f0f0; text-decoration: none; }
 .badge-tue { background-color: #fdf5e6; color: #d35400; border: none; margin:0;}
 .badge-tutorial { background-color: #f4f6f8; color: #444; border: 1px solid #ddd; margin:0;}
 .badge-phd { background-color: #fdf5e6; color: #d35400; border: none; padding: 2px 6px; margin:0;}
+.badge-visiting { background-color: #f0f4ff; color: #3d5a99; border: none; padding: 2px 6px; margin:0;}
 .badge-msc { background-color: #f4f6f8; color: #444; border: 1px solid #ddd; padding: 1px 5px; margin:0;}
 .badge-bsc { background-color: #e6f9ec; color: #1e8449; border: none; padding: 2px 6px; margin:0;}
 
