@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foundation Models - Meng Fang</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .page-intro { font-size: 1rem; color: #444; margin-bottom: 10px; }
+        .pub-desc { font-size: 0.9rem; color: #555; margin-top: 4px; }
+        section h3 { margin-top: 20px; }
+        .category-tag {
+            display: inline-block;
+            padding: 3px 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 12px;
+        }
+        .tag-pre { background-color: #e7f0fb; color: #0056b3; }
+        .tag-post { background-color: #fdf0e1; color: #d35400; }
+    </style>
+</head>
+<body>
+
+    <!-- 顶部导航与标题 -->
+    <header>
+        <a href="index.html" class="back-link">← Back to Home</a>
+        <h1>🗣️ Foundation Models</h1>
+        <p class="page-intro">Advancing Large Language Models (LLMs) through data-centric training, robust data selection, and enhancing mathematical and scientific reasoning.</p>
+    </header>
+
+    <!-- Data-Centric Learning / Data Selection -->
+    <section>
+        <h2>Data-Centric Learning / Data Selection</h2>
+
+        <h3><span class="category-tag tag-pre">Pre-training Data Selection</span></h3>
+        <ul class="pub-list">
+            <li>
+                <div class="pub-title">
+                    <a href="https://proceedings.neurips.cc/paper_files/paper/2025/hash/6e54c0fb5c8be96b92055f6a3b6b2d6f-Abstract-Conference.html" target="_blank">
+                        MuRating: A High Quality Data Selecting Approach to Multilingual Large Language Model Pretraining
+                    </a>
+                </div>
+                <div class="pub-meta">
+                    Zhixun Chen, Ping Guo, Wenhan Han, Yifan Zhang, Binbin Liu, Haobin Lin, Fengze Liu,
+                    Yan Zhao, Bingni Zhang, Taifeng Wang, Yin Zheng, Trevor Cohn, <strong>Meng Fang</strong>
+                    | <em>NeurIPS 2025</em>
+                </div>
+                <div class="pub-desc">Multilingual pre-training data quality scoring and selection: selects multilingual subsets from web data for pretraining LLaMA-style models.</div>
+            </li>
+            <li>
+                <div class="pub-title">ParaRater: Enhancing Cross-Lingual Transfer in LLMs with Meta-Learning</div>
+                <div class="pub-meta">
+                    Wenhan Han, Binbin Liu, Zhixun Chen, Yifan Zhang, Mykola Pechenizkiy, <strong>Meng Fang</strong>, Yin Zheng
+                    | <em>EMNLP 2026</em>
+                </div>
+                <div class="pub-desc">Parallel-corpus selection for cross-lingual transfer, using meta-learned raters to identify the most valuable parallel data.</div>
+            </li>
+        </ul>
+
+        <h3><span class="category-tag tag-post">Post-training Data Selection</span></h3>
+        <ul class="pub-list">
+            <li>
+                <div class="pub-title">DOSE: Data Selection for Multi-Modal LLMs via Off-the-Shelf Models</div>
+                <div class="pub-meta">
+                    Biao Wu, Yiwu Zhong, <strong>Meng Fang</strong>, Ling Chen
+                    | <em>ACL Findings 2026</em>
+                </div>
+                <div class="pub-desc">Multimodal instruction-tuning data selection: scores text quality and image–text alignment, then applies diversity-aware sampling; evaluated on LLaVA vision-language instruction tuning.</div>
+            </li>
+        </ul>
+    </section>
+
+    <footer style="margin-top: 40px; padding-top: 15px; border-top: 1px solid #eaeaea; text-align: center; color: #888; font-size: 0.85rem;">
+        &copy; 2026 Meng Fang.
+    </footer>
+
+</body>
+</html>
